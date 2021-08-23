@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=9" >
+
+<title>STATS PACKAGE INSTALL</title>
+
+<link rel="stylesheet" type="text/css" href="extsyntax.css" />
+
+</head>
+
+
+<body>
+
+<h1>STATS PACKAGE INSTALL Extension Command</h1>
+<div class="syntax">
+<p></p>Install Python and R packages needed by  extension commands and programs but not installed with them</p>
+
+<p>STATS PACKAGE INSTALL<br/>
+PYTHON = list of Python packages to install from PyPI<br/>
+R = list of R packages to install from CRAN<br/>
+</p>
+
+<p>/HELP</p>
+
+<p><sup>&#42;</sup> Required<br/>
+<sup>&#42;&#42;</sup> Default</p>
+</div>
+<p>STATS PACKAGE INSTALL /HELP prints this help and does nothing else.</p>
+
+<pre class="example"><code>
+STATS PACKAGE INSTALL PYTHON=nltk R=class AER.
+</code></pre>
+
+<p>R CRAN packages needed by an R extension command are normally installed automatically when an extension
+is installed if an Internet connection is available, but sometimes a package dependency is not specified by the
+package author or a newer version may be needed.  For Python, packages needed from PyPI are currently not
+installed automatically with the extension command.</p>
+
+<p>Note that on some systems, this command requires that Statistics be started in administrator mode.</p>
+
+<p><strong>PYTHON</strong> specifies one or more Python packages to install from PyPI.
+The letter case of the names does not matter.  If the current version of a package is already installed,
+it will be skipped.</p>
+
+<p><strong>R</strong> specifies one or more R packages to install from CRAN.
+The letter case must match the case of the name.  The install will overwrite
+an existing package with the same name.
+</p>
+
+<p>Python packages are installed by the Python PIP utility via the SPSS Statistics HOST command.  R packages
+are installed by the R install.packages function using a BEGIN PROGRAM R block.</p>
+
+<p>&copy; Copyright Jon K Peck, 2021</p>
+
+</body>
+
+</html>
+
