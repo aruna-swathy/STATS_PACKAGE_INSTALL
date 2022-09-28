@@ -1,9 +1,10 @@
 __author__  =  'Jon K Peck'
-__version__ =  '1.0.0'
+__version__ =  '1.0.1'
 version = __version__
 
 # history
 # 07-31-2021 initial version
+# 09-27-2022 protect against unset repos option
 
 # The STATS PACKAGE INSTALL extension command
 
@@ -27,9 +28,9 @@ def doinstalls(python=None, R=None):
     
     if not (python or R):
         raise ValueError(_("No packages to install were specified."))
-    if python:
+    if python and not python[:] == ['[',']']:
         pyinstall(python)
-    if R:
+    if R and not R[:] == ['[',']']:
         rinstall(R)
     
 def pyinstall(packages):
@@ -109,7 +110,13 @@ def rinstall(packages):
     
     # The command is formatted so as not to prematurely terminate the program
     for p in packages:
-        cmd = f"""begin program r.\ninstall.packages("{p}", quiet=TRUE)""" + "\nend program."
+        cmd = f"""begin program r.
+r = getOption("repos")
+if (r == "@CRAN@") {{
+  r["CRAN"] <- "https://cloud.r-project.org"
+  options(repos = r)
+}}
+install.packages("{p}", quiet=TRUE)""" + "\nend program."
         print(_(f"**** Installing R package {p} for {spss.GetDefaultPlugInVersion()} ****")) 
         try:
             spss.Submit(cmd)
