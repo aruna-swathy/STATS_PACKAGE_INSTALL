@@ -1,10 +1,11 @@
 __author__  =  'Jon K Peck'
-__version__ =  '1.0.1'
+__version__ =  '1.0.2'
 version = __version__
 
 # history
 # 07-31-2021 initial version
 # 09-27-2022 protect against unset repos option
+# 01-02-2022 protect against non-English output language
 
 # The STATS PACKAGE INSTALL extension command
 
@@ -93,6 +94,7 @@ def getTargetLocation():
     
     workspace = "X." + str(random.uniform(.05, 1))  # no scientific notation will be used
     spss.Submit(f"""PRESERVE.
+    SET OLANG=ENGLISH.
     OMS SELECT TABLES/IF SUBTYPES='System Settings'
     /DESTINATION  FORMAT=OXML XMLWORKSPACE="{workspace}" VIEWER=NO
     /TAG = "{workspace}".
